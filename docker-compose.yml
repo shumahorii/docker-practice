@@ -6,6 +6,7 @@ services:
       - "5173:5173"
     volumes:
       - ./client:/app
+      - /app/node_modules
     command: npm run dev -- --host
     depends_on:
       - server
@@ -16,6 +17,7 @@ services:
       - "3001:3001"
     volumes:
       - ./server:/app
+      - /app/node_modules
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@db:5432/postgres
     depends_on:
@@ -29,3 +31,5 @@ services:
       POSTGRES_PASSWORD: postgres
     ports:
       - "5432:5432"
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
